@@ -1,15 +1,9 @@
-<script lang="ts">
-	import { RadioGroup, RadioItem } from '@skeletonlabs/skeleton';
-	import { superForm } from 'sveltekit-superforms/client';
-	import type { PageData } from "./$types"
-	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
+<script>
+	import { enhance, applyAction } from '$app/forms';
 	
-	export let data: PageData
+	export let data;
+	export let form;
 
-	const { form, errors, enhance, constraints } = superForm(data.form, {
-		taintedMessage: "Are you sure you want to leave this page?"
-	});
-	
 </script>
 
 <div class= "card card-side bg-base-100 shadow-xl ">
@@ -35,113 +29,106 @@
 	</div>
 	
 	<div >	
-	<form action="?/" method="POST" class="space-y-2" use:enhance>
+	<form action="?/create" method="POST"  use:enhance>
 			<label class="label">
 				<span>Name
 					<div class="badge badge-secondary">*</div>	
+					<input type="text" 
+							name="name" 
+							placeholder="Enter your full name here..." 
+							class="input input-bordered w-full max-w-xs"
+							/>
 				</span>
-				<input type="text" 
-						name="name" 
-						placeholder="Enter your full name here..." 
-						class="input input-bordered w-full max-w-xs"
-						bind:value={$form.name} 
-						{...$constraints.name}
-						/>
 						
 			</label>
 			
 			<label class="label">
-				<span>Age <div class="badge badge-secondary">*</div>	</span>
-				<input type="number" 
-						name="age" 
-						placeholder="Enter your age here..." 
-						class="input input-bordered w-full max-w-xs" 
-						bind:value={$form.age} 
-						{...$constraints.age}
-						/>
-			
+				<span>Age <div class="badge badge-secondary">*</div>	
+					<input type="number" 
+							name="age" 
+							placeholder="Enter your age here..." 
+							class="input input-bordered w-full max-w-xs" 
+							
+							/>
+				</span>
 				</label>
 	
 			<label class="label">
-				<span>Date of Birth<div class="badge badge-secondary">*</div> </span>
-				<input
+				<span>Date of Birth<div class="badge badge-secondary">*</div> 
+					<input
 					type="date"
 					class="input input-bordered w-full max-w-xs"
-					name="dateOfBirth"
-					bind:value={$form.dateOfBirth}
-					{...$constraints.dateOfBirth}
+					name="dateofbirth"
 				/>
-				{#if $errors.dateOfBirth}
-					<p class="text-error">{$errors.dateOfBirth}</p>
-				{/if}
+				</span>
 			</label>
 
 			<label class="label">
-				<span>School's Name <div class="badge badge-secondary">*</div> </span>
-				<input type="text" 
+				<span>School's Name <div class="badge badge-secondary">*</div> 
+					<input type="text" 
 						name="schoolname" 
 						placeholder="Enter your school's name here..." 
 						class="input input-bordered w-full max-w-xs" 
-						bind:value={$form.schoolName} 
-						{...$constraints.schoolName}
-
-						/>
+					/>
+				</span>
 				
-					</label>
-
+			</label>
 			
 			<label class="label">
-				<span>Email <div class="badge badge-secondary">*</div> </span>
-				<input class="input input-bordered w-full max-w-xs" 
-						name="email" 
-						type="email" 
-						placeholder="Enter email address..." 
-						bind:value={$form.email} 
-						{...$constraints.email}
-
-						/>
+				<span>Address <div class="badge badge-secondary">*</div> 
+					<input type="text" 
+						name="address" 
+						placeholder="Enter your address here..." 
+						class="input input-bordered w-full max-w-xs" 
+					/>
+				</span>
+				
+			</label>
+			
+			<label class="label">
+				<span>Province Name<div class="badge badge-secondary">*</div> 
+					<input type="text" 
+						name="province" 
+						placeholder="Enter your province's name here..." 
+						class="input input-bordered w-full max-w-xs" 
+					/>
+				</span>
 				
 			</label>
 
 			<label class="label">
-				<span>Phone Number <div class="badge badge-secondary">*</div> </span>
-			<input class="input input-bordered w-full max-w-xs" 
+				<span>Email <div class="badge badge-secondary">*</div> 
+				<input class="input input-bordered w-full max-w-xs" 
+					name="email" 
+					type="email" 
+					placeholder="Enter email address..." 
+					/>
+				</span>
+				
+			</label>
+
+			<label class="label">
+				<span>Phone Number <div class="badge badge-secondary">*</div> 
+					<input class="input input-bordered w-full max-w-xs" 
 					name="phone" 
 					type="tel" 
 					placeholder="Enter phone number..." 
-					bind:value={$form.phoneNo}
-					{...$constraints.phoneNo}
-
 					/>
-			</label>
+				</span>
 			
-			<div class="flex items-center justify-center gap-2 ">
-			<span>Select Your Province <div class="badge badge-secondary">*</div> </span>
-			</div>
-			<label for="region" class="label w-full max-w-xs ">
-				<RadioGroup>
-					<RadioItem bind:group={$form.province} name="justify" value={"Koshi"}>Koshi</RadioItem>
-					<RadioItem bind:group={$form.province} name="justify" value={"Madhesh"}>Madhesh</RadioItem>
-					<RadioItem bind:group={$form.province} name="justify" value={"Bagmati"}>Bagmati</RadioItem>
-					<RadioItem bind:group={$form.province} name="justify" value={"Gandaki"}>Gandaki</RadioItem>
-					<RadioItem bind:group={$form.province} name="justify" value={"Lumbini"}>Lumbini</RadioItem>
-					<RadioItem bind:group={$form.province} name="justify" value={"Karnali"}>Karnali</RadioItem>
-					<RadioItem bind:group={$form.province} name="justify" value={"Sudurpashchim"}>Sudurpaschim</RadioItem>
-				</RadioGroup>
 			</label>
 			
 			<label class="label">
-				<span>District <div class="badge badge-secondary">*</div> </span>
-			<input class="input input-bordered w-full max-w-xs" 
+				<span>District <div class="badge badge-secondary">*</div> 
+					<input class="input input-bordered w-full max-w-xs" 
 					name="district" 
 					type="text" 
 					placeholder="Enter Your District Name..." 
-					bind:value={$form.district} 
-					{...$constraints.district}
-
-					/>
-						
+					/>	
+				</span>
+			
 			</label>
+
 			<div class="flex items-center justify-center ">
 			<button type='submit' class="btn btn-outline btn-success">Generate Registration Form</button>
 			</div>
@@ -149,5 +136,3 @@
 	</div>
 	</div>
 </div>
-
-<SuperDebug data={$form} />

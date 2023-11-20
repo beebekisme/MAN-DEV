@@ -1,16 +1,7 @@
-<script lang="ts">
-
-	import '../app.postcss';
-
-	// Floating UI for Popups
-	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
-	import { storePopup } from '@skeletonlabs/skeleton';
-
-	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
-
-	
+<script>
+	import '../app.css';
 </script>
-<main class="max-w-[850px] mx-auto p-10">
-<slot />
 
-</main>
+<div class="flex min-h-full flex-col py-12 sm:px-6 lg:px-8 w-full">
+	<slot />
+</div>

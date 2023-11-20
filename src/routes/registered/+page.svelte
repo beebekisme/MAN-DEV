@@ -1,11 +1,10 @@
-<script lang="ts">
-    import type { ActionData } from './$types'
-  
-    export let form: ActionData
-  </script>
+<script>
+	import { enhance, applyAction } from '$app/forms';
+	
 
-<div>
-    Your registered successfully.
-    <br>
-    Check your downloads for the registration document
+
+</script>
+
+<div class="w-full">
+		This is registered page. Still have to work on it. This is where I will show the pdf.
 </div>
