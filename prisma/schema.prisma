@@ -9,8 +9,8 @@ datasource db {
 
 model User {
 
-  name          String @unique
-  email         String @unique
+  name          String
+  email         String 
   address       String
   dateofbirth   String
   age           String
@@ -19,5 +19,6 @@ model User {
   phone         String
   userAuthToken String @unique
   createdAt DateTime @default(now())
+  combinedstring      String @unique
 
 }
